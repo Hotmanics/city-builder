@@ -24,10 +24,7 @@ export const Meta: React.FC<MetaProps> = ({ title, type, slug, image, descriptio
       />
       <meta
         property="og:description"
-        content={
-          description ||
-          'Unlock the possibilities of collective creation. Start with a vision. Start a DAO. All onchain.'
-        }
+        content={description || 'Empower your city. Revolutionize the World.'}
       />
       {PUBLIC_IS_TESTNET && <meta name="robots" content="noindex" />}
 
@@ -38,10 +35,7 @@ export const Meta: React.FC<MetaProps> = ({ title, type, slug, image, descriptio
       <meta name="twitter:url" content={`https://nouns.build${slug}`} />
       <meta
         name="twitter:description"
-        content={
-          description ||
-          'Unlock the possibilities of collective creation. Start with a vision. Start a DAO. All onchain.'
-        }
+        content={description || 'Empower your city. Revolutionize the World.'}
       />
       <meta
         name="twitter:image"

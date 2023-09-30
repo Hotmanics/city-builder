@@ -14,11 +14,11 @@ const RecentlyCreated: React.FC<{
       w={'100%'}
       mx={'auto'}
       justify={'flex-start'}
-      mt={{ '@initial': 'x16', '@768': 'x32' }}
+      mt={{ '@initial': 'x16', '@768': 'x8' }}
       className={homeSectionWrapper}
     >
       <Text fontWeight={'label'} className={homeSectionHeader}>
-        Recent DAOs on <span style={{ textDecoration: 'underline' }}>{chain.name}</span>
+        City DAOs on <span style={{ textDecoration: 'underline' }}>{chain.name}</span>
       </Text>
       {children}
       <Flex align={'center'} justify={'center'} mt={'x6'}>

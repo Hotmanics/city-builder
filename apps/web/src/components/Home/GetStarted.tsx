@@ -47,7 +47,7 @@ const GetStarted = () => {
       align={'center'}
       justify={'center'}
     >
-      Create your DAO
+      Create your City DAO
     </Button>
   )
 }

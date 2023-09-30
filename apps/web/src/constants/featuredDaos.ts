@@ -5,19 +5,19 @@ export type TestnetChain = CHAIN_ID.GOERLI | CHAIN_ID.OPTIMISM_GOERLI
 export const PUBLIC_FEATURED_DAOS = {
   [CHAIN_ID.GOERLI]: [
     {
-      auctionAddress: '0x8F1B054500ED7a2B06619CD2E5D70415Bc9d6b8a',
-      tokenAddress: '0x6e13ED8472fBBd384C260538323906fc1eCb0d7B',
-      name: 'MuseumDAO',
+      auctionAddress: '0xA21C52D91c3bEC132ac9eff52653845a18C29f47',
+      tokenAddress: '0x9a99a59491E35a97Fc0776F9e6c3C209a75b6Ad9',
+      name: 'PGH DAO',
     },
     {
-      auctionAddress: '0x736EaF8C02dc093E392131068B7F17f34C4f7791',
-      tokenAddress: '0x7F29a9dfBFf0e6DB6c8a449Fee282F9B5f5fc99f',
-      name: 'RecordLabelDAO',
+      auctionAddress: '0x123bB0f159eb5dE02666252CfF203AEb2Bd067c5',
+      tokenAddress: '0x6972E8525326053445c605969269c8174bF3a228',
+      name: 'DC DAO',
     },
     {
-      auctionAddress: '0xC4E181443EE3696cF19EB21578A6310BB75aA117',
-      tokenAddress: '0x579B2fF0F4bd719ad7628208606688a8Ac871644',
-      name: 'StartupDAO',
+      auctionAddress: '0xd11D8aFE303273151A3177E8f434c6f66976aFFa',
+      tokenAddress: '0xC2Ac2885d7E4860FD98040606812912dAAfc54Ff',
+      name: 'PDX DAO',
     },
   ],
   [CHAIN_ID.OPTIMISM_GOERLI]: [

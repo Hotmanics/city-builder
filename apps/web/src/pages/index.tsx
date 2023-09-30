@@ -19,7 +19,7 @@ export type DaoProps = AuctionFragment['dao']
 const HomePage: NextPageWithLayout = () => {
   return (
     <>
-      <Meta title={'Nouns your ideas'} type={'website'} slug={'/'} />
+      <Meta title={'City DAO Builder'} type={'website'} slug={'/'} />
       <Stack align={'center'}>
         <Marquee />
         <GetStarted />

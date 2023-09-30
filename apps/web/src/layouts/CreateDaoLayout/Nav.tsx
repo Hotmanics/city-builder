@@ -1,4 +1,5 @@
-import { Box, Flex, Label, atoms } from '@zoralabs/zord'
+import { Box, Flex, Label } from '@zoralabs/zord'
+import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
@@ -6,7 +7,7 @@ import { NetworkController } from 'src/components/NetworkController'
 import { useIsMounted } from 'src/hooks/useIsMounted'
 
 import { NavMenu } from '../DefaultLayout/NavMenu'
-import NogglesLogo from '../assets/builder-framed.svg'
+import ATXLogo from '../assets/atx.png'
 import TestnetLogo from '../assets/testnet.svg'
 import { NavContainer, NavWrapper } from './Nav.styles.css'
 
@@ -22,17 +23,20 @@ export const Nav = () => {
           <Link href={'/'} passHref>
             <Flex direction={'row'} align="center">
               <NetworkController.Mainnet>
-                <NogglesLogo
+                <Image src={ATXLogo} alt="test" />
+                {/* <NogglesLogo
                   fill={'white'}
                   className={atoms({ width: 'x23', cursor: 'pointer' })}
-                />
+                /> */}
               </NetworkController.Mainnet>
 
               <NetworkController.Testnet>
-                <NogglesLogo
+                <Image src={ATXLogo} alt="test" />
+
+                {/* <NogglesLogo
                   fill={'white'}
                   className={atoms({ width: 'x23', cursor: 'pointer' })}
-                />
+                /> */}
               </NetworkController.Testnet>
 
               <Box ml={'x3'} display={{ '@initial': 'none', '@768': 'block' }}>
