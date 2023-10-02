@@ -1,6 +1,4 @@
 import { Box, Flex, Label, Stack, atoms } from '@zoralabs/zord'
-// import ATXLogo from '../assets/atx.png'
-import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
@@ -10,11 +8,13 @@ import { PUBLIC_IS_TESTNET } from 'src/constants/defaultChains'
 import { useBridgeModal } from 'src/hooks/useBridgeModal'
 import { useScrollDirection } from 'src/hooks/useScrollDirection'
 
-// import ATXLogo from '../assets/atx-s.svg'
-import CityDAOLogo from '../assets/citydao.jpg'
+import NogglesLogo from '../assets/builder-framed.svg'
 import TestnetLogo from '../assets/testnet.svg'
 import { NavContainer, NavWrapper, navMenuItem } from './Nav.styles.css'
 import { NavMenu } from './NavMenu'
+
+import Image from 'next/image'
+import CityDAOLogo from '../assets/citydao.jpg'
 
 export const Nav = () => {
   const scrollDirection = useScrollDirection()
@@ -37,10 +37,9 @@ export const Nav = () => {
         <Flex align={'center'}>
           <Link href={'/'} passHref>
             <Stack>
-              <Image src={CityDAOLogo} alt="test" width={64} />
-              {/* <ATXLogo fill={'black'} className={atoms({ width: 'x16', height: 'x16', cursor: 'pointer' })} /> */}
-
-              {/* <NogglesLogo
+            <Image src={CityDAOLogo} alt="test" width={48} />
+{/* 
+              <NogglesLogo
                 fill={'black'}
                 className={atoms({ width: 'x23', cursor: 'pointer' })}
               /> */}

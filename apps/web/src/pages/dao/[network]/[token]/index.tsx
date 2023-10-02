@@ -1,4 +1,4 @@
-import { Flex, Text } from '@zoralabs/zord'
+import { Flex, Text, atoms, theme } from '@zoralabs/zord'
 import { isAddress } from 'ethers/lib/utils.js'
 import { GetServerSideProps } from 'next'
 import { useRouter } from 'next/router'
@@ -12,6 +12,7 @@ import { PUBLIC_DEFAULT_CHAINS } from 'src/constants/defaultChains'
 import { auctionAbi } from 'src/data/contract/abis'
 import getDAOAddresses from 'src/data/contract/requests/getDAOAddresses'
 import { getDaoLayout } from 'src/layouts/DaoLayout'
+import NogglesLogo from 'src/layouts/assets/builder-framed.svg'
 import {
   Activity,
   DaoContractAddresses,
@@ -24,8 +25,6 @@ import {
 import { NextPageWithLayout } from 'src/pages/_app'
 import { AddressType, Chain } from 'src/typings'
 import { unpackOptionalArray } from 'src/utils/helpers'
-
-// import ATXLogo from '../assets/atx.png'
 
 interface DaoPageProps {
   chain: Chain
@@ -71,13 +70,10 @@ const DaoPage: NextPageWithLayout<DaoPageProps> = ({ chain, collectionAddress })
     return (
       <Flex direction={'column'} align={'center'} width={'100%'} height={'100vh'}>
         <Flex mt={'x64'} direction="column" align={'center'}>
-          {/* <Image src={ATXLogo} alt ="test" width={128} height={128} fill="#6973ff"/> */}
-          {/* <ATXLogo fill={theme.colors.text4} className={atoms({ width: 'x23', cursor: 'pointer' })} /> */}
-          {/* 
           <NogglesLogo
             fill={theme.colors.text4}
             className={atoms({ width: 'x23', cursor: 'pointer' })}
-          /> */}
+          />
           <Text mt={'x2'} color="text4">
             There’s nothing here yet
           </Text>

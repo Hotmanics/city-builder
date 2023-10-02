@@ -3,7 +3,7 @@ import { Box } from '@zoralabs/zord'
 import { exploreSkeleton } from '../Explore/Explore.css'
 import { GridContainer } from './DaoFeed'
 
-export const DaoFeedCardSkeleton = ({ key }: { key?: any }) => {
+export const DaoFeedCardSkeleton = (key?: any) => {
   return (
     <Box
       key={key}
