@@ -41,7 +41,7 @@ export const ReplaceArtworkForm: React.FC<ReplaceArtworkFormProps> = ({
     filesLength: setUpArtwork?.filesLength || '',
   }
 
-  const showPropertyErrors = ipfsUpload.length > 0
+  const showPropertyErrors = ipfsUpload != undefined
 
   return (
     <Box w={'100%'}>

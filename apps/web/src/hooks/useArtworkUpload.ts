@@ -17,7 +17,7 @@ export interface IPFSUpload {
 export interface ImageProps {
   cid?: string
   name: string
-  trait: string
+  // trait: string
   uri: string
   url?: string
   path?: string
@@ -34,10 +34,10 @@ export interface ArtworkUploadError {
 
 export interface UseArtworkUploadProps {
   artwork: ArtworkType[]
-  ipfsUpload: IPFSUpload[]
+  ipfsUpload: IPFSUpload | undefined
   isUploadingToIPFS: boolean
   onUploadStart: () => void
-  onUploadSuccess: (ipfs: IPFSUpload[]) => void
+  onUploadSuccess: (ipfs: IPFSUpload) => void
   onUploadError: (error: Error) => void
 }
 
@@ -55,17 +55,18 @@ export const useArtworkUpload = ({
   const [ipfsUploadError, setIpfsUploadError] = React.useState<boolean>(false)
 
   /*   assign ipfs upload to property  */
-  const images = React.useMemo(() => {
+  const image = React.useMemo(() => {
+
     if (isUploadingToIPFS) return
 
     if (Array.isArray(ipfsUpload) && artwork.length) {
-      return ipfsUpload.reduce((acc: ImageProps[] = [], upload) => {
+      return ipfsUpload.reduce((acc: ImageProps, upload) => {
         const index = artwork?.map((e: any) => e.trait).indexOf(upload.trait)
         const childIndex = artwork[index]?.properties.indexOf(upload.name)
         const childName = artwork[index]?.properties[childIndex]
 
-        acc.push({
-          trait: artwork[index]?.trait,
+        acc = {
+          // trait: artwork[index]?.trait,
           name: childName,
           cid: upload?.ipfs?.cid || '',
           uri: upload?.ipfs?.uri || '',
@@ -78,7 +79,7 @@ export const useArtworkUpload = ({
           path: upload.webkitRelativePath,
           content: upload?.content,
           blob: upload?.blob,
-        })
+        }
         return acc
       }, [])
     }
@@ -89,13 +90,17 @@ export const useArtworkUpload = ({
   /* prepare files */
 
   const [isProcessing, setIsProcessing] = React.useState<boolean | undefined>(undefined)
+
+  const [file, setFile] = React.useState<File | null>(null);
+
   const [files, setFiles] = React.useState<FileList | null>(null)
-  const [filesArray, setFilesArray] = React.useState<File[] | null>(null)
+  // const [filesArray, setFilesArray] = React.useState<File[] | null>(null)
   const fileInfo = React.useMemo(() => {
-    if (!files) return
+    if (!file) return;
+    // if (!files) return
 
     setIsProcessing(true)
-    const filesArray = Array.from(files).filter((file) => file.name !== '.DS_Store')
+    // const filesArray = Array.from(files).filter((file) => file.name !== '.DS_Store')
     const acceptableMIME = ['image/png', 'image/svg+xml']
 
     let collectionName: string = ''
@@ -105,87 +110,9 @@ export const useArtworkUpload = ({
       properties: string[]
     }[] = []
 
-    const reduced = filesArray.reduce((acc: any = [], cv, index) => {
-      const paths = cv.webkitRelativePath.split('/')
-      const collection = paths[0]
-      const currentTrait = sanitizeFileName(paths[1])
-      const currentProperty = sanitizeFileName(paths[2])
-
-      /*  set collection name and file type */
-      if (!collectionName) {
-        collectionName = paths[0]
-      }
-
-      if (!fileType) {
-        fileType = cv.type
-      }
-
-      /*  construct traits and properties  */
-      if (traits.filter((trait) => trait.trait === currentTrait).length === 0) {
-        traits.push({ trait: currentTrait, properties: [] })
-      }
-
-      if (!!traits) {
-        traits
-          .filter((trait) => trait.trait === currentTrait)[0]
-          ?.properties?.push(currentProperty)
-      }
-
-      /* handle errors */
-
-      // forward slashes seem to be converted to `:`
-      // check for both folder and file name
-      if (
-        cv.name.includes(':') ||
-        paths[2]?.includes(':') ||
-        cv.name.split('.').length !== 2 ||
-        paths[1].split('.').length !== 1
-      ) {
-        setUploadArtworkError({
-          directory: `file or folder naming incorrect. must not include forward slashes or periods.`,
-        })
-        return
-      }
-
-      if (paths.length !== 3 || !paths) {
-        if (paths.length > 3) {
-          setUploadArtworkError({
-            directory: `file or folder naming incorrect. must not include back slashes.`,
-          })
-          return
-        }
-
-        setUploadArtworkError({
-          directory: `folder structure is incorrect. download the nouns example folder to compare.`,
-        })
-        return
-      }
-
-      if (cv.type.length && !acceptableMIME.includes(cv.type)) {
-        setUploadArtworkError({
-          mime: `${cv.type} is an unsupported file type - file: ${cv.name}`,
-        })
-        return
-      }
-
-      if (traits.length > 10) {
-        setUploadArtworkError({
-          maxTraits: `Maximum of 10 traits per collection. Your upload includes ${traits.length} traits.`,
-        })
-        return
-      }
-
-      if (filesArray[index - 1 > 0 ? index - 1 : 0].type !== cv.type) {
-        setUploadArtworkError({
-          mime: `All file types must be the same.`,
-        })
-        return
-      }
-
-      /* get image size */
-      const fr = new FileReader()
-      fr.readAsDataURL(cv)
-      const getImageSize = (fr: FileReader, count: number) => {
+    const fr = new FileReader()
+      fr.readAsDataURL(file)
+      const getImageSize = (fr: FileReader) => {
         let img = new Image()
         img.src = fr.result?.toString() || ''
         img.onload = function () {
@@ -193,7 +120,7 @@ export const useArtworkUpload = ({
           let width = img.width
           let min = 600
 
-          if ((height < min || width < min) && cv.type !== 'image/svg+xml') {
+          if ((height < min || width < min) && file.type !== 'image/svg+xml') {
             setUploadArtworkError({
               dimensions: `we recommend images of min, 600px width x height, your images are width: ${width} x ${height} px`,
             })
@@ -206,96 +133,231 @@ export const useArtworkUpload = ({
             })
             return
           }
-
-          if (count === filesArray?.length - 1) {
-            setIsProcessing(false)
-          }
         }
       }
-      fr.onload = () => getImageSize(fr, filesArray.indexOf(cv))
+      fr.onload = () => getImageSize(fr)
 
-      acc.push({
-        collection,
-        trait: currentTrait,
-        traitProperty: currentProperty,
-        file: cv,
-      })
 
-      return acc
-    }, [])
+    // const reduced = filesArray.reduce((acc: any = [], cv, index) => {
+    //   // const paths = cv.webkitRelativePath.split('/')
+    //   const path = filesArray[0].name;
+
+    //   const collection = path;
+    //   const currentTrait = sanitizeFileName(path)
+
+
+    //   const currentProperty = sanitizeFileName(path)
+
+      /*  set collection name and file type */
+      // if (!collectionName) {
+      //   collectionName = path
+      // }
+
+      // if (!fileType) {
+      //   fileType = cv.type
+      // }
+
+      // /*  construct traits and properties  */
+      // if (traits.filter((trait) => trait.trait === currentTrait).length === 0) {
+      //   traits.push({ trait: currentTrait, properties: [] })
+      // }
+
+      // if (!!traits) {
+      //   traits
+      //     .filter((trait) => trait.trait === currentTrait)[0]
+      //     ?.properties?.push(currentProperty)
+      // }
+
+
+      /* handle errors */
+
+      // forward slashes seem to be converted to `:`
+      // check for both folder and file name
+      // if (
+      //   cv.name.includes(':') ||
+      //   path?.includes(':') ||
+      //   cv.name.split('.').length !== 2 ||
+      //   path.split('.').length !== 1
+      // ) {
+      //   setUploadArtworkError({
+      //     directory: `file or folder naming incorrect. must not include forward slashes or periods.`,
+      //   })
+      //   return
+      // }
+
+      // if (path.length !== 3 || !path) {
+      //   if (path.length > 3) {
+      //     setUploadArtworkError({
+      //       directory: `file or folder naming incorrect. must not include back slashes.`,
+      //     })
+      //     return
+      //   }
+
+      //   setUploadArtworkError({
+      //     directory: `folder structure is incorrect. download the nouns example folder to compare.`,
+      //   })
+      //   return
+      // }
+
+    //   if (cv.type.length && !acceptableMIME.includes(cv.type)) {
+    //     setUploadArtworkError({
+    //       mime: `${cv.type} is an unsupported file type - file: ${cv.name}`,
+    //     })
+    //     return
+    //   }
+
+    //   if (traits.length > 10) {
+    //     setUploadArtworkError({
+    //       maxTraits: `Maximum of 10 traits per collection. Your upload includes ${traits.length} traits.`,
+    //     })
+    //     return
+    //   }
+
+    //   if (filesArray[index - 1 > 0 ? index - 1 : 0].type !== cv.type) {
+    //     setUploadArtworkError({
+    //       mime: `All file types must be the same.`,
+    //     })
+    //     return
+    //   }
+
+    //   /* get image size */
+    //   const fr = new FileReader()
+    //   fr.readAsDataURL(cv)
+    //   const getImageSize = (fr: FileReader, count: number) => {
+    //     let img = new Image()
+    //     img.src = fr.result?.toString() || ''
+    //     img.onload = function () {
+    //       let height = img.height
+    //       let width = img.width
+    //       let min = 600
+
+    //       if ((height < min || width < min) && cv.type !== 'image/svg+xml') {
+    //         setUploadArtworkError({
+    //           dimensions: `we recommend images of min, 600px width x height, your images are width: ${width} x ${height} px`,
+    //         })
+    //         return
+    //       }
+
+    //       if (height !== width) {
+    //         setUploadArtworkError({
+    //           dimensions: `images must be of equal height and width, your images are width: ${width} x ${height} px`,
+    //         })
+    //         return
+    //       }
+
+    //       if (count === filesArray?.length - 1) {
+    //         setIsProcessing(false)
+    //       }
+    //     }
+    //   }
+    //   fr.onload = () => getImageSize(fr, filesArray.indexOf(cv))
+
+    //   acc.push({
+    //     collection,
+    //     trait: currentTrait,
+    //     traitProperty: currentProperty,
+    //     file: cv,
+    //   })
+
+    //   return acc
+    // }, [])
+
+    const filesArr : File[] = [];
+    filesArr.push(file);
 
     return {
-      filesLength: files.length,
+      filesLength: 1,
       fileType,
       collectionName,
       traits,
-      fileArray: reduced,
+      fileArray: filesArr,
     }
-  }, [files])
+  }, [file])
 
   React.useEffect(() => {
     if (isProcessing === false) {
-      const filesArray = fileInfo?.fileArray.reduce((acc: any[], cv: { file: File }) => {
-        acc.push(cv.file)
+      setFile(file);
 
-        return acc
-      }, [])
-
-      setFilesArray(filesArray)
+      // setFilesArray(filesArray)
     }
   }, [isProcessing, fileInfo])
 
   /* upload Files to ipfs via zora ipfs service */
 
-  const uploadToIPFS: (files: File[]) => Promise<IPFSUpload[]> = async (files) => {
+  const uploadToIPFS = async (file: File | null): Promise<IPFSUpload> => {
     const ipfsUploadResponse = await uploadDirectory(
-      files.map((file) => ({
-        content: file,
-        path: sanitizeFileName(file.webkitRelativePath.split('/').slice(1).join('/')),
-      })),
-      { cache: false }
+      [{
+        content: file!,
+        path: file!.name
+      }] 
+      // files.map((file) => ({
+      //   content: file,
+      //   path: file.name,
+      // })),
+      // { cache: false }
     )
-
-    return files.map((file) => ({
-      name: sanitizeFileName(file.webkitRelativePath.split('/')[2]),
-      property: file.webkitRelativePath.split('/')[2],
-      collection: file.webkitRelativePath.split('/')[0],
-      trait: sanitizeFileName(file.webkitRelativePath.split('/')[1]),
-      path: file.webkitRelativePath,
-      content: file,
-      blob: URL.createObjectURL(file),
-      webkitRelativePath: file.webkitRelativePath,
-      type: file.type,
+    
+    return {
+      name: sanitizeFileName(file!.name),
+      property: file!.name,
+      collection: file!.name,
+      trait: file!.name,
+      path: file!.webkitRelativePath,
+      content: file!,
+      blob: URL.createObjectURL(file!),
+      webkitRelativePath: file!.webkitRelativePath,
+      type: file!.type,
       ipfs: ipfsUploadResponse,
-    }))
-  }
+    } as IPFSUpload
+  } 
 
+    // return files.map((file) => ({
+    //   name: sanitizeFileName(file.name),
+    //   property: file.name,
+    //   collection: file.name,
+    //   trait: file.name,
+    //   path: file.webkitRelativePath,
+    //   content: file,
+    //   blob: URL.createObjectURL(file),
+    //   webkitRelativePath: file.webkitRelativePath,
+    //   type: file.type,
+    //   ipfs: ipfsUploadResponse,
+    // }))
   React.useEffect(() => {
-    if (!filesArray || !!uploadArtworkError) return
 
-    const handleUpload = async (filesArray: File[]) => {
-      const files = filesArray.filter((file) => file.name !== '.DS_Store')
+    if (!file || !!uploadArtworkError) return
 
+    // if (!filesArray || !!uploadArtworkError) return
+
+    const handleUpload = async (file: File) => {
+      // const files = filesArray.filter((file) => file.name !== '.DS_Store')
       try {
         onUploadStart()
-        const ipfs = await uploadToIPFS(files)
+        const ipfs = await uploadToIPFS(file)
+
         onUploadSuccess(ipfs)
+
       } catch (err) {
+
+
         setIpfsUploadError(true)
-        console.log('err', err)
         onUploadError(err as Error)
         return
       }
     }
 
-    handleUpload(filesArray)
-  }, [filesArray, uploadArtworkError])
+    handleUpload(file)
+  }, [file, uploadArtworkError])
+
+
+  const emptyFileArr: File[] = [];
 
   return {
-    images,
+    image,
     setFiles,
+    setFile,
     fileInfo,
-    filesArray,
+    emptyFileArr,
     uploadArtworkError,
     setUploadArtworkError,
     ipfsUploadError,

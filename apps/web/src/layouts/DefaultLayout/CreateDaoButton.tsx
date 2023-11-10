@@ -19,7 +19,7 @@ export const CreateDaoButton = () => {
           border: '2px solid #F2F2F2',
         }}
       >
-        <Text variant={'label-md'}>Create a DAO</Text>
+        <Text variant={'label-md'}>Create a City DAO</Text>
       </Flex>
     </Link>
   )

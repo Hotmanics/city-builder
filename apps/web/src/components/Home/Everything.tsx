@@ -106,7 +106,7 @@ const Everything = () => {
             />
             No Code
           </Flex>
-          <Flex
+          {/* <Flex
             align={'center'}
             justify={'center'}
             className={marqueeItemButton}
@@ -120,7 +120,7 @@ const Everything = () => {
               mr={'x3'}
             />
             Artwork
-          </Flex>
+          </Flex> */}
           <Flex
             align={'center'}
             justify={'center'}

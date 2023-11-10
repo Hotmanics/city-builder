@@ -45,7 +45,7 @@ export interface DragAndDropProps {
 interface LayerBoxProps {
   trait: string
   properties: string[]
-  ipfs: ImageProps[]
+  ipfs: ImageProps
   setDragAndDrop: (props: DragAndDropProps) => void
   dragAndDrop: DragAndDropProps | null
   orderedLayers: OrderedTraits
@@ -198,9 +198,9 @@ export const LayerBox: React.FC<LayerBoxProps> = ({
         style={{ maxHeight: '500px' }}
       >
         {properties?.map((property) => {
-          const index = ipfs?.map((e) => e.name).indexOf(property)
-          const image = ipfs?.[index]?.cid
-          const src = ipfs?.[index]?.url
+          const index = 0; //ipfs?.map((e) => e.name).indexOf(property)
+          const image = ipfs?.cid
+          const src = ipfs?.url
           return (
             <Flex gap={'x2'} key={property} justify={'center'} align={'center'}>
               <Flex

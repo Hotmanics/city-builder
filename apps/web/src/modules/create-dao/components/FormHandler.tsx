@@ -20,7 +20,7 @@ export const FormHandler = ({
   return (
     <Box>
       <Flex align={'center'} justify={'space-between'}>
-        <Text variant={'eyebrow'}>Create A dao</Text>
+        <Text variant={'eyebrow'}>Create A City dao</Text>
         {sectionIndex === 0 ? (
           <a
             href="https://docs.zora.co/docs/guides/builder-deployment"
@@ -33,7 +33,7 @@ export const FormHandler = ({
                 fontSize={12}
                 className={atoms({ textDecoration: 'underline' })}
               >
-                How to create a DAO?
+                How to create a City DAO?
               </Text>
               <Icon fill="text3" size="sm" ml="x1" id="external-16" />
             </Flex>

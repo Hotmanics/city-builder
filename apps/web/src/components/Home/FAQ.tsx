@@ -9,18 +9,14 @@ import Accordion from './accordian'
 const FAQ = () => {
   const items = [
     {
-      title: 'What is Nouns Builder?',
+      title: 'What is City DAO Builder?',
       description: (
         <>
           <Flex mb={'x4'}>
-            Nouns Builder is a tool that allows any DAO to form and govern completely
-            onchain, in the format of Nouns DAO.
+            City DAO Builder is a tool that allows any city to form and govern completely onchain.
           </Flex>
           <Flex mb={'x4'}>
-            Nouns are an experimental attempt to improve the formation of onchain avatar
-            communities. While projects such as Cryptopunks have attempted to bootstrap
-            digital community and identity, Nouns attempt to bootstrap community and
-            identity with the additive layer of governance and a treasury.
+            City DAOs are organizations which seek to make progressive actions following Web3 ideaologies. This can take shape in many forms: decentralized governance, permissionless activity, and transparent operations.
           </Flex>
         </>
       ),
@@ -30,15 +26,15 @@ const FAQ = () => {
       description: (
         <>
           <Flex mb={'x4'}>
-            To create generative NFTs with Nouns Builder, you will need a folder of your
-            artwork layers in .png or .svg.
+            To create NFTs with City DAO Builder, you will need a folder with the following subfolders: 0-backgrounds, 1-bodies, 2-accessories, 3-heads, 4-glasses.
+            Within each subfolder will contain your image that will represent your NFT.
           </Flex>
           <Flex mb={'x4'}>
             600px x 600px minimum for pngs, 32px minimum for svgs and must be square
             images.
           </Flex>
           <Flex mb={'x4'}>Image layers can be reordered in the upload flow. </Flex>
-          <Flex mb={'x4'}>
+          {/* <Flex mb={'x4'}>
             <a href={'/nouns.zip'} download className={defaultFileDownloadStyle}>
               <Icon id="download" />
               <Text ml="x2">Download demo folder</Text>
@@ -55,7 +51,7 @@ const FAQ = () => {
               <Icon id="newWindow" />
               <Text ml="x2">Artwork starter kit</Text>
             </a>
-          </Flex>
+          </Flex> */}
         </>
       ),
     },
@@ -65,8 +61,7 @@ const FAQ = () => {
         <>
           <Flex mb={'x4'}>
             Founder allocations are a custom % of tokens over a custom period of time to
-            specified wallet addresses. In Nouns DAO, this is 10% of tokens for 5 years
-            (token 0, 10, 20 etc) for the DAO founders.
+            specified wallet addresses.
           </Flex>
 
           <Flex mb={'x4'}>
@@ -82,11 +77,11 @@ const FAQ = () => {
       description: (
         <>
           <Flex mb={'x4'}>
-            Each auction is a generative NFT, created from your artwork layers.
+            Each auction is an NFT, created from your artwork layers.
           </Flex>
           <Flex mb={'x4'}>
             Once the auction is started by the founder, it will run forever. The DAO
-            founder can set the auction schedule when they create the DAO. Nouns DAO
+            founder can set the auction schedule when they create the DAO. City DAO
             auction cadence is daily.
           </Flex>
           <Flex mb={'x4'}>

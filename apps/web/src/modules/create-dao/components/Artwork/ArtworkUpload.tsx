@@ -62,13 +62,18 @@ export const ArtworkUpload: React.FC<ArtworkFormProps> = ({
   } = useFormStore()
   const { artwork } = setUpArtwork
 
-  const handleUploadSuccess = (ipfs: IPFSUpload[]) => {
+  const handleUploadSuccess = (ipfs: IPFSUpload) => {
+    console.log("success")
     setIpfsUpload(ipfs)
     setIsUploadingToIPFS(false)
   }
 
   const handleUploadError = async (err: Error) => {
-    setIpfsUpload([])
+    console.log("failure")
+
+    console.log("e");
+
+    // setIpfsUpload(undefined)
     setIsUploadingToIPFS(false)
     Sentry.captureException(err)
     await Sentry.flush(2000)
@@ -76,13 +81,14 @@ export const ArtworkUpload: React.FC<ArtworkFormProps> = ({
   }
 
   const {
-    images,
+    image,
     fileInfo,
-    filesArray,
+    emptyFileArr,
     ipfsUploadError,
     uploadArtworkError,
     setUploadArtworkError,
     setFiles,
+    setFile
   } = useArtworkUpload({
     artwork,
     ipfsUpload,
@@ -92,14 +98,17 @@ export const ArtworkUpload: React.FC<ArtworkFormProps> = ({
     onUploadError: handleUploadError,
   })
 
-  const { generateStackedImage, imagesToDraw, generatedImages, canvas } =
-    useArtworkPreview({
-      images,
-      orderedLayers,
-    })
+  // const { generateStackedImage, imagesToDraw, generatedImages, canvas } =
+  //   useArtworkPreview({
+  //     images,
+  //     orderedLayers,
+  //   })
 
   const handleUpload = (e: BaseSyntheticEvent) => {
+
+    console.log(e);
     setUploadArtworkError(undefined)
+    setFile(e.currentTarget.files[0]);
     setFiles(e.currentTarget.files)
     setOrderedLayers([])
   }
@@ -110,15 +119,15 @@ export const ArtworkUpload: React.FC<ArtworkFormProps> = ({
 
   */
   React.useMemo(() => {
-    if (!fileInfo || !filesArray || !fileInfo.traits || !formik || uploadArtworkError)
+    if (!fileInfo || !emptyFileArr || !fileInfo.traits || !formik || uploadArtworkError)
       return
 
-    setSetUpArtwork({
-      ...formik.values,
-      artwork: fileInfo.traits,
-      filesLength: fileInfo.filesLength,
-    })
-  }, [filesArray || fileInfo, uploadArtworkError])
+    // setSetUpArtwork({
+    //   ...formik.values,
+    //   artwork: fileInfo.traits,
+    //   filesLength: fileInfo.filesLength,
+    // })
+  }, [emptyFileArr || fileInfo, uploadArtworkError])
 
   /*
 
@@ -126,13 +135,13 @@ export const ArtworkUpload: React.FC<ArtworkFormProps> = ({
 
   */
   const [isReady, setIsReady] = React.useState<boolean>(false)
-  React.useEffect(() => {
-    setIsReady(!!setUpArtwork.artwork.length && !isUploadingToIPFS && !!imagesToDraw)
-  }, [setUpArtwork.artwork, isUploadingToIPFS, imagesToDraw])
+  // React.useEffect(() => {
+  //   setIsReady(!!setUpArtwork.artwork.length && !isUploadingToIPFS && !!imagesToDraw)
+  // }, [setUpArtwork.artwork, isUploadingToIPFS, imagesToDraw])
 
   React.useEffect(() => {
     if (isReady && !isUploadingToIPFS) {
-      generateStackedImage()
+      // generateStackedImage()
     }
   }, [isReady, isUploadingToIPFS])
 
@@ -140,7 +149,7 @@ export const ArtworkUpload: React.FC<ArtworkFormProps> = ({
 
   const layerOrdering = (
     <LayerOrdering
-      images={images}
+      image={image}
       artwork={artwork}
       orderedLayers={orderedLayers}
       setOrderedLayers={setOrderedLayers}
@@ -158,11 +167,11 @@ export const ArtworkUpload: React.FC<ArtworkFormProps> = ({
         onUpload={handleUpload}
         ipfsUploadError={ipfsUploadError}
         uploadArtworkError={uploadArtworkError}
-        images={images}
+        image={image}
         fileType={fileInfo?.fileType}
         layerOrdering={layerOrdering}
       />
-      {showPreview && (
+      {/* {showPreview && (
         <motion.div
           key={'preview-panel'}
           variants={previewVariants}
@@ -177,7 +186,7 @@ export const ArtworkUpload: React.FC<ArtworkFormProps> = ({
             generatedImages={generatedImages}
           />
         </motion.div>
-      )}
+      )} */}
     </>
   )
 }

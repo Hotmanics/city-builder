@@ -26,6 +26,10 @@ import { NextPageWithLayout } from 'src/pages/_app'
 import { AddressType, Chain } from 'src/typings'
 import { unpackOptionalArray } from 'src/utils/helpers'
 
+
+import Image from 'next/image'
+import CityDAOLogo from '../assets/citydao.jpg'
+
 interface DaoPageProps {
   chain: Chain
   addresses: DaoContractAddresses
@@ -70,10 +74,13 @@ const DaoPage: NextPageWithLayout<DaoPageProps> = ({ chain, collectionAddress })
     return (
       <Flex direction={'column'} align={'center'} width={'100%'} height={'100vh'}>
         <Flex mt={'x64'} direction="column" align={'center'}>
-          <NogglesLogo
+          
+        <Image src={CityDAOLogo} alt="test" width={48} />
+
+          {/* <NogglesLogo
             fill={theme.colors.text4}
             className={atoms({ width: 'x23', cursor: 'pointer' })}
-          />
+          /> */}
           <Text mt={'x2'} color="text4">
             There’s nothing here yet
           </Text>

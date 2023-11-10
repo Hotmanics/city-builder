@@ -8,7 +8,7 @@ const Twitter = () => (
     </Text>
     <Text
       as={'a'}
-      href={'https://twitter.com/nounsbuilder'}
+      href={'https://twitter.com/citydaonetwork'}
       target={'_blank'}
       rel={'noopener noreferrer'}
       className={`${atoms({
@@ -20,7 +20,7 @@ const Twitter = () => (
         mt: 'x4',
       })} ${mixins({ hoverFadeOut: true })}`}
     >
-      Nouns Builder on Twitter
+      City DAO Network on Twitter
     </Text>
   </Stack>
 )

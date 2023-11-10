@@ -6,12 +6,12 @@ import { ImageProps } from './useArtworkUpload'
 
 export interface UseArtworkPreviewProps {
   orderedLayers: OrderedTraits
-  images?: ImageProps[]
+  imageP: ImageProps
 }
 
 export interface ImagesByTraitProps {
   trait: string
-  images: ImageProps[]
+  imageP: ImageProps
 }
 
 export interface SelectedTraitsProps {
@@ -21,7 +21,10 @@ export interface SelectedTraitsProps {
   content: File
 }
 
-export const useArtworkPreview = ({ images, orderedLayers }: UseArtworkPreviewProps) => {
+export const useArtworkPreview = ({ imageP, orderedLayers }: UseArtworkPreviewProps) => {
+
+  // console.log(images);
+
   const canvas = React.useRef(null)
   const [generatedImages, setGeneratedImages] = React.useState<any[]>([])
 
@@ -34,26 +37,32 @@ export const useArtworkPreview = ({ images, orderedLayers }: UseArtworkPreviewPr
 
    */
 
-  const imagesByTrait = React.useMemo(() => {
-    if (!images) return
+  // const imagesByTrait = React.useMemo(() => {
 
-    return images.reduce((acc: ImagesByTraitProps[] = [], image) => {
-      const trait = image.trait
-      const index = acc.findIndex((e: any) => e?.trait === trait)
-      // const propertyTrait = orderedLayers.filter((item) => item.trait === image.trait)[0]
-      const propertyTrait = orderedLayers.filter(
-        (item) => item?.trait?.replace(/\s/g, '') === image?.trait?.replace(/\s/g, '')
-      )?.[0]
-      const orderedIndex = orderedLayers.indexOf(propertyTrait)
+  //   if (!image) return;
 
-      if (index === -1) {
-        acc[orderedIndex] = { trait, images: [image] }
-      } else {
-        acc[index]?.images.push(image)
-      }
-      return acc
-    }, [])
-  }, [images, orderedLayers])
+  //   return 
+  //   if (!images) return
+
+  //   return images.reduce((acc: ImagesByTraitProps[] = [], image) => {
+
+  //     // console.log(image);
+  //     const trait = image.trait
+  //     const index = acc.findIndex((e: any) => e?.trait === trait)
+  //     const propertyTrait = orderedLayers.filter((item) => item.trait === image.trait)[0]
+  //     const propertyTrait = orderedLayers.filter(
+  //       (item) => item?.trait?.replace(/\s/g, '') === image?.trait?.replace(/\s/g, '')
+  //     )?.[0]
+  //     const orderedIndex = orderedLayers.indexOf(propertyTrait)
+
+  //     if (index === -1) {
+  //       acc[orderedIndex] = { trait, images: [image] }
+  //     } else {
+  //       acc[index]?.images.push(image)
+  //     }
+  //     return acc
+  //   }, [])
+  // }, [images, orderedLayers])
 
   const layers = React.useMemo(() => {
     if (!imagesByTrait) return
@@ -129,21 +138,14 @@ export const useArtworkPreview = ({ images, orderedLayers }: UseArtworkPreviewPr
 
   */
   const imagesToDraw = React.useMemo(() => {
-    if (!imageLayerStack) return
 
-    return imageLayerStack.reduce((acc: HTMLImageElement[] = [], cv: string) => {
-      let image = new Image()
-
-      image.src = cv
-      acc.push(image)
-      return acc
-    }, [])
-  }, [imageLayerStack])
+    let image = new Image()
+    image.src = imageP?.path?
+    
+  }, [])
 
   /*
-
     draw stacked image on canvas
-
   */
   const [isInit, setIsInit] = React.useState<boolean>(true)
   const generateStackedImage = React.useCallback(

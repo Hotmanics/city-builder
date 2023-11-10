@@ -27,7 +27,7 @@ const ExploreNoDaos = () => {
           py={'x2'}
           mx={'x1'}
         >
-          Create a DAO
+          Create a City DAO
         </Flex>
       </Link>
     </Flex>

@@ -58,14 +58,18 @@ export const ArtworkUpload: React.FC<ArtworkFormProps> = ({
     setOrderedLayers,
   } = useArtworkStore()
   const { artwork } = setUpArtwork
+  console.log(artwork);
 
-  const handleUploadSuccess = (ipfs: IPFSUpload[]) => {
+  const handleUploadSuccess = (ipfs: IPFSUpload) => {
+    console.log("sccess");
+    
     setIpfsUpload(ipfs)
     setIsUploadingToIPFS(false)
   }
 
   const handleUploadError = async (err: Error) => {
-    setIpfsUpload([])
+    console.log("errored");
+    setIpfsUpload(undefined)
     setIsUploadingToIPFS(false)
     Sentry.captureException(err)
     await Sentry.flush(2000)
@@ -75,7 +79,7 @@ export const ArtworkUpload: React.FC<ArtworkFormProps> = ({
   const {
     images,
     fileInfo,
-    filesArray,
+    emptyFileArr,
     ipfsUploadError,
     uploadArtworkError,
     setUploadArtworkError,
@@ -84,7 +88,7 @@ export const ArtworkUpload: React.FC<ArtworkFormProps> = ({
     artwork,
     ipfsUpload,
     isUploadingToIPFS,
-    onUploadStart: () => setIsUploadingToIPFS(true),
+    onUploadStart: () => { console.log("staRted"); setIsUploadingToIPFS(true) },
     onUploadSuccess: handleUploadSuccess,
     onUploadError: handleUploadError,
   })
@@ -107,14 +111,14 @@ export const ArtworkUpload: React.FC<ArtworkFormProps> = ({
 
   */
   React.useMemo(() => {
-    if (!fileInfo || !filesArray || !fileInfo.traits || !formik || uploadArtworkError)
+    if (!fileInfo || !emptyFileArr || !fileInfo.traits || !formik || uploadArtworkError)
       return
 
     setSetUpArtwork({
       artwork: fileInfo.traits,
       filesLength: fileInfo.filesLength,
     })
-  }, [filesArray || fileInfo, uploadArtworkError])
+  }, [emptyFileArr || fileInfo, uploadArtworkError])
 
   /*
 

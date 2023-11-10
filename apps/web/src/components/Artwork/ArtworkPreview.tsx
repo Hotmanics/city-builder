@@ -23,32 +23,32 @@ export const ArtworkPreview: React.FC<ArtworkPreviewProps> = ({
   generateStackedImage,
   images,
 }) => {
-  return (
-    <Flex align={'center'} justify={'center'} direction={'column'}>
-      <Flex className={artworkPreviewImageWrapper} mb={'x8'}>
-        <img height={'100%'} width={'100%'} src={generatedImages[0]} />
-        <canvas ref={canvas} style={{ display: 'none' }} />
-      </Flex>
-      <Flex
-        mb={'x6'}
-        align={'center'}
-        onClick={() => generateStackedImage()}
-        className={artworkPreviewGenerateButton}
-      >
-        <Flex w={'x6'} h={'x6'} mr={'x2'}>
-          <Icon id="refresh" />
-        </Flex>
-        <Flex>Generate Randomized Preview</Flex>
-      </Flex>
-      <Flex></Flex>
-      {images && (
-        <AnimatedModal
-          size={'large'}
-          trigger={<Flex>See more in Advanced Preview Playground</Flex>}
-        >
-          <Playground images={images} />
-        </AnimatedModal>
-      )}
-    </Flex>
+  return (<></>
+    // <Flex align={'center'} justify={'center'} direction={'column'}>
+    //   <Flex className={artworkPreviewImageWrapper} mb={'x8'}>
+    //     <img height={'100%'} width={'100%'} src={generatedImages[0]} />
+    //     <canvas ref={canvas} style={{ display: 'none' }} />
+    //   </Flex>
+    //   <Flex
+    //     mb={'x6'}
+    //     align={'center'}
+    //     onClick={() => generateStackedImage()}
+    //     className={artworkPreviewGenerateButton}
+    //   >
+    //     <Flex w={'x6'} h={'x6'} mr={'x2'}>
+    //       <Icon id="refresh" />
+    //     </Flex>
+    //     <Flex>Generate Randomized Preview</Flex>
+    //   </Flex>
+    //   <Flex></Flex>
+    //   {images && (
+    //     <AnimatedModal
+    //       size={'large'}
+    //       trigger={<Flex>See more in Advanced Preview Playground</Flex>}
+    //     >
+    //       <Playground images={images} />
+    //     </AnimatedModal>
+    //   )}
+    // </Flex>
   )
 }

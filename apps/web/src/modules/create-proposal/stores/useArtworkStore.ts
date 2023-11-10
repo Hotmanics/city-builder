@@ -12,8 +12,8 @@ export interface ArtworkFormValues {
 export interface ArtworkStore {
   setUpArtwork: ArtworkFormValues
   setSetUpArtwork: (artwork: ArtworkFormValues) => void
-  ipfsUpload: IPFSUpload[]
-  setIpfsUpload: (ipfsUpload: IPFSUpload[]) => void
+  ipfsUpload: IPFSUpload | undefined
+  setIpfsUpload: (ipfsUpload: IPFSUpload | undefined) => void
   orderedLayers: OrderedTraits
   setOrderedLayers: (orderedLayers: OrderedTraits) => void
   isUploadingToIPFS: boolean
@@ -26,15 +26,16 @@ const initialState = {
     artwork: [],
     filesLength: '',
   },
-  ipfsUpload: [],
+  ipfsUpload: undefined,
   orderedLayers: [],
   isUploadingToIPFS: false,
 }
 
-export const useArtworkStore = create<ArtworkStore>((set) => ({
+export const useArtworkStore = create<ArtworkStore>((set) => (
+  {
   ...initialState,
   setSetUpArtwork: (artwork: ArtworkFormValues) => set({ setUpArtwork: artwork }),
-  setIpfsUpload: (ipfsUpload: IPFSUpload[]) => set({ ipfsUpload }),
+  setIpfsUpload: (ipfsUpload: IPFSUpload | undefined) => set({ ipfsUpload }),
   setOrderedLayers: (orderedLayers: OrderedTraits) => {
     set({
       orderedLayers,

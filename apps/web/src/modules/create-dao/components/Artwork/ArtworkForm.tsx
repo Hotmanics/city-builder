@@ -108,7 +108,7 @@ export const Artwork: React.FC<ArtworkProps> = ({ title }) => {
                 !isEmpty(formik.errors) ||
                 formik.isSubmitting ||
                 isUploadingToIPFS ||
-                ipfsUpload.length === 0
+                ipfsUpload != undefined
               }
             >
               Continue

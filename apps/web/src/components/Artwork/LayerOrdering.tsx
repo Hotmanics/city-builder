@@ -13,7 +13,7 @@ export interface ArtworkType {
 
 interface LayerOrderingProps {
   title?: string
-  images?: ImageProps[]
+  image?: ImageProps
   artwork: ArtworkType[]
   orderedLayers: OrderedTraits
   setOrderedLayers: (orderedLayers: OrderedTraits) => void
@@ -21,7 +21,7 @@ interface LayerOrderingProps {
 
 export const LayerOrdering: React.FC<LayerOrderingProps> = ({
   title,
-  images,
+  image,
   artwork,
   orderedLayers,
   setOrderedLayers,
@@ -34,7 +34,7 @@ export const LayerOrdering: React.FC<LayerOrderingProps> = ({
     }
   }, [artwork, orderedLayers, setOrderedLayers])
 
-  if (!images) return null
+  if (!image) return null
 
   return (
     <Box>
@@ -46,7 +46,7 @@ export const LayerOrdering: React.FC<LayerOrderingProps> = ({
               key={trait}
               trait={trait}
               properties={properties}
-              ipfs={images}
+              ipfs={image}
               setDragAndDrop={setDragAndDrop}
               dragAndDrop={dragAndDrop}
               orderedLayers={orderedLayers}

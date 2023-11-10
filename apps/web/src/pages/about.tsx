@@ -10,6 +10,9 @@ import { getDefaultLayout } from 'src/layouts/DefaultLayout'
 import { whyCreateButton, whyTextStyle } from '../styles/why.css'
 import { NextPageWithLayout } from './_app'
 
+import KenImage from "./ken.jpg";
+import CityDAOImage from "../layouts/assets/citydao.jpg"
+
 const AboutPage: NextPageWithLayout = () => {
   const router = useRouter()
 
@@ -21,34 +24,39 @@ const AboutPage: NextPageWithLayout = () => {
 
       <Stack align={'center'} pt={'x64'}>
         <Flex width={'x64'}>
-          <Image src="/noggles.png" alt="Nouns" width={256} height={95} />
+          <Image src={CityDAOImage} alt="Ken" width={256} height={256} />
         </Flex>
         <Stack
           fontSize={35}
-          pt={'x64'}
+          pt={'x16'}
           className={whyTextStyle}
           textAlign={'center'}
           gap={'x12'}
           width={'100%'}
           px={'x4'}
         >
-          <Box>What do these glasses symbolize?</Box>
+          <Box>What does City DAO Network symbolize?</Box>
 
           <Box>
-            To us, they symbolize a powerful new model <br /> for collective creation.
+            An ecosystem to facillitate the collection and communcation between all City DAOs.
+            <br/> City DAOs allow for the possibility of Cities to operate in a decentralized, permissionless, and transparent way.
           </Box>
 
           <Box>
+            City DAO Builder allows for anyone to make a City DAO. It is a fork of Nouns Builder.
+          </Box>
+
+          {/* <Box>
             A shared vision. <br /> And a shared realization of that vision. <br /> The
             seed of one idea. <br />
             And the infinite ideas that can grow from it. <br /> From coming up together.{' '}
             <br /> To taking over together.
           </Box>
 
-          <img src={'/why.svg'} alt="" />
+          <img src={'/why.svg'} alt="" /> */}
 
-          <Box>
-            We built Nouns Builder to proliferate this new model so anyone can build with
+          {/* <Box>
+            He built City DAO Builder to proliferate this new model so anyone can build with
             it. <br /> Why? <br /> Because the old ways of doing great things together
             aren’t so great anymore.
           </Box>
@@ -113,7 +121,7 @@ const AboutPage: NextPageWithLayout = () => {
               objectFit="contain"
               layout="responsive"
             />
-          </Box>
+          </Box> */}
         </Stack>
       </Stack>
     </>

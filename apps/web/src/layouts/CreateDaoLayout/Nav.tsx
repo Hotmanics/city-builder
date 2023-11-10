@@ -10,6 +10,9 @@ import NogglesLogo from '../assets/builder-framed.svg'
 import TestnetLogo from '../assets/testnet.svg'
 import { NavContainer, NavWrapper } from './Nav.styles.css'
 
+import Image from 'next/image'
+import CityDAOLogo from '../assets/citydao.jpg'
+
 export const Nav = () => {
   const isMounted = useIsMounted()
 
@@ -22,17 +25,21 @@ export const Nav = () => {
           <Link href={'/'} passHref>
             <Flex direction={'row'} align="center">
               <NetworkController.Mainnet>
-                <NogglesLogo
+              <Image src={CityDAOLogo} alt="test" width={48} />
+
+                {/* <NogglesLogo
                   fill={'white'}
                   className={atoms({ width: 'x23', cursor: 'pointer' })}
-                />
+                /> */}
               </NetworkController.Mainnet>
 
               <NetworkController.Testnet>
-                <NogglesLogo
+              <Image src={CityDAOLogo} alt="test" width={48} />
+
+                {/* <NogglesLogo
                   fill={'white'}
                   className={atoms({ width: 'x23', cursor: 'pointer' })}
-                />
+                /> */}
               </NetworkController.Testnet>
 
               <Box ml={'x3'} display={{ '@initial': 'none', '@768': 'block' }}>

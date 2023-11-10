@@ -28,10 +28,11 @@ export const MadeWithZoraFooter = ({
       gap={'x3'}
     >
       <Eyebrow color={color} className={footerLogoTextLeft}>
-        Made With
+        Made With Love On Ethereum
       </Eyebrow>
+      
 
-      <Box position={'relative'}>
+      {/* <Box position={'relative'}>
         <Box
           as="a"
           href={'https://zora.co'}
@@ -45,11 +46,7 @@ export const MadeWithZoraFooter = ({
         </Box>
 
         <Zorb />
-      </Box>
-
-      <Eyebrow color={color} className={footerLogoTextRight}>
-        On Ethereum
-      </Eyebrow>
+      </Box> */}
     </Flex>
   )
 }

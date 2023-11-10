@@ -25,7 +25,7 @@ interface ArtworkUploadProps {
   onUpload: (e: BaseSyntheticEvent) => void
   uploadArtworkError: ArtworkUploadError | undefined
   ipfsUploadError: boolean
-  images: ImageProps[] | undefined
+  image: ImageProps | undefined
   fileType?: string
   layerOrdering: React.ReactNode
 }
@@ -45,8 +45,8 @@ export const ArtworkUpload: React.FC<ArtworkUploadProps> = ({
   const dropInput = React.useRef<HTMLInputElement>(null)
   React.useEffect(() => {
     if (dropInput.current !== null) {
-      dropInput.current.setAttribute('directory', '')
-      dropInput.current.setAttribute('webkitdirectory', '')
+      // dropInput.current.setAttribute('directory', '')
+      // dropInput.current.setAttribute('webkitdirectory', '')
     }
   }, [dropInput])
 
@@ -85,7 +85,7 @@ export const ArtworkUpload: React.FC<ArtworkUploadProps> = ({
           id="file-upload"
           name="file"
           type="file"
-          multiple={true}
+          multiple={false}
           ref={dropInput}
           onChange={onUpload}
         />

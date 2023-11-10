@@ -32,7 +32,7 @@ export const Footer = () => {
             color={'onAccent'}
             className={footerHeading}
           >
-            Start with a vision. Start a DAO. All onchain.
+            Unlock the possibilities of Web3. Start a City DAO. All onchain.
           </Flex>
           <Link href={'/create'} legacyBehavior>
             <Flex
@@ -74,7 +74,7 @@ export const Footer = () => {
             </Box>
           </Link>
           <Grid columns={3} gap="x3">
-            <a href={'https://twitter.com/nounsbuilder'} target="_blank" rel="noreferrer">
+            <a href={'https://twitter.com/citydaonetwork'} target="_blank" rel="noreferrer">
               <Icon
                 id="twitter"
                 backgroundColor="background1"
@@ -82,7 +82,7 @@ export const Footer = () => {
                 p="x2"
               />
             </a>
-            <a href={'https://discord.gg/C6Zmt8aakt'} target="_blank" rel="noreferrer">
+            <a href={'https://discord.gg/Vqapv5ME'} target="_blank" rel="noreferrer">
               <Icon
                 id="discord"
                 backgroundColor="background1"
@@ -91,7 +91,7 @@ export const Footer = () => {
               />
             </a>
             <a
-              href={' https://github.com/ourzora/nouns-builder'}
+              href={'https://github.com/Hotmanics/city-builder'}
               target="_blank"
               rel="noreferrer"
             >

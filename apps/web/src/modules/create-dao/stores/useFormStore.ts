@@ -31,8 +31,8 @@ export interface FormStoreState {
   setAuctionSettings: (auctionSettings: AuctionSettingsFormValues) => void
   setUpArtwork: ArtworkFormValues
   setSetUpArtwork: (artwork: ArtworkFormValues) => void
-  ipfsUpload: IPFSUpload[]
-  setIpfsUpload: (ipfsUpload: IPFSUpload[]) => void
+  ipfsUpload: IPFSUpload | undefined
+  setIpfsUpload: (ipfsUpload: IPFSUpload) => void
   deployedDao: DaoContractAddresses
   setDeployedDao: (deployedDao: DaoContractAddresses) => void
   orderedLayers: OrderedTraits
@@ -85,7 +85,7 @@ const initialState = {
     externalUrl: '',
     filesLength: '',
   },
-  ipfsUpload: [],
+  ipfsUpload: undefined,
   orderedLayers: [],
   isUploadingToIPFS: false,
   deployedDao: {
@@ -119,7 +119,7 @@ export const useFormStore = create(
       setVetoPower: (vetoPower: boolean) => set({ vetoPower }),
       setVetoerAddress: (vetoerAddress: string) => set({ vetoerAddress }),
       setSetUpArtwork: (artwork: ArtworkFormValues) => set({ setUpArtwork: artwork }),
-      setIpfsUpload: (ipfsUpload: IPFSUpload[]) => set({ ipfsUpload }),
+      setIpfsUpload: (ipfsUpload: IPFSUpload) => {  set({ ipfsUpload }) },
       setOrderedLayers: (orderedLayers: OrderedTraits) => {
         set({
           orderedLayers,

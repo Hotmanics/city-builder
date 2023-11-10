@@ -9,6 +9,9 @@ import NogglesLogo from 'src/layouts/assets/builder-framed.svg'
 import { CHAIN_ID } from 'src/typings'
 import { formatCryptoVal } from 'src/utils/numbers'
 
+import Image from 'next/image'
+import CityDAOLogo from '../assets/citydao.jpg'
+
 export type DaoOgMetadata = {
   ownerCount: number
   proposalCount: number
@@ -114,12 +117,14 @@ export default async function handler(req: NextRequest) {
             left: 95,
           }}
         >
-          <NogglesLogo
+                      <Image src={CityDAOLogo} alt="test" width={48} />
+
+          {/* <NogglesLogo
             fill={'white'}
             width="90"
             style={{ objectFit: 'contain', paddingRight: '2px' }}
             alt="logo"
-          />
+          /> */}
           <p style={{ marginLeft: '10px', fontWeight: 500 }}>Builder</p>
         </div>
         <div style={{ display: 'flex', position: 'absolute', bottom: 50, right: 95 }}>

@@ -14,7 +14,7 @@ interface MetaProps {
 export const Meta: React.FC<MetaProps> = ({ title, type, slug, image, description }) => {
   return (
     <Head>
-      <title>{`Nouns Builder | ${title}`}</title>
+      <title>{`City DAO Builder | ${title}`}</title>
       <meta property="og:title" content={title} />
       <meta property="og:type" content={type} />
       <meta property="og:url" content={`https://nouns.build${slug}`} />
@@ -26,7 +26,7 @@ export const Meta: React.FC<MetaProps> = ({ title, type, slug, image, descriptio
         property="og:description"
         content={
           description ||
-          'Unlock the possibilities of collective creation. Start with a vision. Start a DAO. All onchain.'
+          'Unlock the possibilities of Web3. Start a City DAO. All onchain.'
         }
       />
       {PUBLIC_IS_TESTNET && <meta name="robots" content="noindex" />}

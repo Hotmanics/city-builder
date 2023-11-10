@@ -95,7 +95,7 @@ const CreatePage: NextPageWithLayout = () => {
 
   return (
     <>
-      <Meta title={'Create a DAO'} slug={'/create'} />
+      <Meta title={'Create a City DAO'} slug={'/create'} />
 
       <Box position="relative" className={pageGrid}>
         <Flex className={createWrapperHalf['left']}>
